@@ -8,7 +8,7 @@ const teamMembers = [
         role: 'Full-Stack Engineer',
         bio: 'Focus: React, Node.js, Express, MongoDB, Spring Boot, deployment, APIs.',
         tags: ['Full-Stack'],
-        image: 'src/assets/vishal.jpeg',
+        image: '/portfolio/vishal.jpeg',
         icon: <FaCode />,
         social: {
             linkedin: 'https://www.linkedin.com/in/vishal-offc/',
@@ -22,7 +22,7 @@ const teamMembers = [
         role: 'AI/ML Engineer',
         bio: 'Focus: face recognition, automation, data processing, AI model integration.',
         tags: ['AI/ML'],
-        image: 'https://www.linkedin.com/in/shuvradeep-chatterjee',
+        image: '/portfolio/imagecopyy2.png',
         icon: <FaBrain />,
         social: {
             linkedin: 'https://www.linkedin.com/in/shuvradeep-chatterjee/',
@@ -36,7 +36,7 @@ const teamMembers = [
         role: 'Game Developer',
         bio: 'Focus: Unity/Unreal, interactive experiences, web games and playable demos.',
         tags: ['Game Dev'],
-        image: "/src/assets/image.png",
+        image: '/portfolio/image.png',
         icon: <FaGamepad />,
         social: {
             linkedin: 'https://www.linkedin.com/in/vivek-kumar-garg-64429b36b',
@@ -50,7 +50,7 @@ const teamMembers = [
         role: 'Video Editor & AI/ML Engineer',
         bio: 'Focus: professional video editing, reels, promotional videos, and ML-assisted video workflows.',
         tags: ['Video', 'AI/ML'],
-        image: 'https://ui-avatars.com/api/?name=Vasu&background=0D8ABC&color=fff',
+        image: '/portfolio/imageecopy2.png',
         icon: <FaVideo />,
         social: {
             linkedin: 'https://www.linkedin.com/in/vasubandhu-dhosh-91223638',
@@ -65,6 +65,7 @@ const allTags = ['All', 'AI/ML', 'Game Dev', 'Video', 'Full-Stack'];
 
 const Team = () => {
     const [filter, setFilter] = useState('All');
+    const [hoveredMember, setHoveredMember] = useState(null);
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, { once: true });
 
@@ -216,8 +217,8 @@ const Team = () => {
                     </div>
                 </motion.div>
 
-                {/* Team Members Grid */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* Team Members Grid - Circular Cards */}
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     <AnimatePresence>
                         {filteredMembers.map((member, index) => (
                             <motion.div
@@ -227,108 +228,138 @@ const Team = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 key={member.name}
-                                className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/10 transition-all group relative"
+                                className="relative"
+                                onMouseEnter={() => setHoveredMember(member.name)}
+                                onMouseLeave={() => setHoveredMember(null)}
                             >
-                                {/* Card Background Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-slate-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                
-                                {/* Image Container */}
-                                <div className="h-48 overflow-hidden bg-slate-700 relative">
-                                    <img
-                                        src={member.image}
-                                        alt={member.name}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
-                                    
-                                    {/* Floating Icon */}
+                                {/* Circular Card Container */}
+                                <div className="relative w-64 h-64 mx-auto">
+                                    {/* Outer Circle with Background */}
                                     <motion.div 
-                                        className="absolute bottom-4 right-4 w-12 h-12 bg-blue-600/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white"
-                                        animate={{ 
-                                            y: [0, -5, 0],
-                                            rotate: [0, 5, 0]
+                                        className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-xl overflow-hidden"
+                                        whileHover={{ 
+                                            scale: 1.05, 
+                                            boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+                                            borderColor: "rgba(59, 130, 246, 0.5)"
                                         }}
-                                        transition={{ 
-                                            duration: 3, 
-                                            repeat: Infinity,
-                                            repeatType: "reverse"
-                                        }}
+                                        transition={{ duration: 0.3 }}
                                     >
-                                        {member.icon}
+                                        {/* Inner Circle for Image */}
+                                        <div className="absolute inset-4 rounded-full overflow-hidden bg-slate-700">
+                                            <img
+                                                src={member.image}
+                                                alt={member.name}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        
+                                        {/* Floating Icon */}
+                                        <motion.div 
+                                            className="absolute top-4 right-4 w-10 h-10 bg-blue-600/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white"
+                                            animate={{ 
+                                                y: [0, -5, 0],
+                                                rotate: [0, 5, 0]
+                                            }}
+                                            transition={{ 
+                                                duration: 3, 
+                                                repeat: Infinity,
+                                                repeatType: "reverse"
+                                            }}
+                                        >
+                                            {member.icon}
+                                        </motion.div>
                                     </motion.div>
+                                    
+                                    {/* Info Overlay - Appears on Hover */}
+                                    <AnimatePresence>
+                                        {hoveredMember === member.name && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                                className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-900/95 to-slate-800/95 flex flex-col justify-center items-center p-6"
+                                            >
+                                                <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                                                <p className="text-blue-400 text-sm mb-2">{member.role}</p>
+                                                <p className="text-slate-300 text-xs text-center mb-4 line-clamp-3">{member.bio}</p>
+                                                
+                                                {/* Tags */}
+                                                <div className="flex flex-wrap gap-1 justify-center mb-4">
+                                                    {member.tags.map(tag => (
+                                                        <span key={tag} className="px-2 py-1 bg-slate-700/50 rounded-full text-xs text-slate-300">
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                                
+                                                {/* Social Links */}
+                                                <div className="flex space-x-3">
+                                                    <motion.a 
+                                                        href={member.social.linkedin} 
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-slate-400 hover:text-blue-500 transition-colors"
+                                                        whileHover={{ scale: 1.2, rotate: 5 }}
+                                                        whileTap={{ scale: 0.8 }}
+                                                        title={`Connect with ${member.name} on LinkedIn`}
+                                                    >
+                                                        <FaLinkedin />
+                                                    </motion.a>
+                                                    <motion.a 
+                                                        href={member.social.github} 
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-slate-400 hover:text-white transition-colors"
+                                                        whileHover={{ scale: 1.2, rotate: -5 }}
+                                                        whileTap={{ scale: 0.8 }}
+                                                        title={`View ${member.name}'s GitHub profile`}
+                                                    >
+                                                        <FaGithub />
+                                                    </motion.a>
+                                                    <motion.a 
+                                                        href={`mailto:${member.social.email}`}
+                                                        className="text-slate-400 hover:text-green-500 transition-colors"
+                                                        whileHover={{ scale: 1.2 }}
+                                                        whileTap={{ scale: 0.8 }}
+                                                        title={`Email ${member.name}`}
+                                                    >
+                                                        <FaEnvelope />
+                                                    </motion.a>
+                                                    <motion.a 
+                                                        href={member.social.portfolio} 
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-slate-400 hover:text-purple-500 transition-colors"
+                                                        whileHover={{ scale: 1.2, rotate: 10 }}
+                                                        whileTap={{ scale: 0.8 }}
+                                                        title={`View ${member.name}'s portfolio`}
+                                                    >
+                                                        <FaExternalLinkAlt />
+                                                    </motion.a>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                                 
-                                {/* Member Info */}
-                                <div className="p-6 relative z-10">
-                                    <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-                                    <p className="text-blue-400 text-sm mb-4">{member.role}</p>
-                                    <p className="text-slate-400 text-sm mb-6 min-h-[60px]">{member.bio}</p>
-
-                                    {/* Tags */}
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {member.tags.map(tag => (
-                                            <span key={tag} className="px-2 py-1 bg-slate-700/50 rounded-full text-xs text-slate-300">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* Footer with Individual Social Links */}
-                                    <div className="flex justify-between items-center">
-                                        <div className="flex space-x-3">
-                                            <motion.a 
-                                                href={member.social.linkedin} 
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-slate-400 hover:text-blue-500 transition-colors"
-                                                whileHover={{ scale: 1.2, rotate: 5 }}
-                                                whileTap={{ scale: 0.8 }}
-                                                title={`Connect with ${member.name} on LinkedIn`}
-                                            >
-                                                <FaLinkedin />
-                                            </motion.a>
-                                            <motion.a 
-                                                href={member.social.github} 
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-slate-400 hover:text-white transition-colors"
-                                                whileHover={{ scale: 1.2, rotate: -5 }}
-                                                whileTap={{ scale: 0.8 }}
-                                                title={`View ${member.name}'s GitHub profile`}
-                                            >
-                                                <FaGithub />
-                                            </motion.a>
-                                            <motion.a 
-                                                href={`mailto:${member.social.email}`}
-                                                className="text-slate-400 hover:text-green-500 transition-colors"
-                                                whileHover={{ scale: 1.2 }}
-                                                whileTap={{ scale: 0.8 }}
-                                                title={`Email ${member.name}`}
-                                            >
-                                                <FaEnvelope />
-                                            </motion.a>
-                                            <motion.a 
-                                                href={member.social.portfolio} 
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-slate-400 hover:text-purple-500 transition-colors"
-                                                whileHover={{ scale: 1.2, rotate: 10 }}
-                                                whileTap={{ scale: 0.8 }}
-                                                title={`View ${member.name}'s portfolio`}
-                                            >
-                                                <FaExternalLinkAlt />
-                                            </motion.a>
-                                        </div>
-                                        <motion.a 
-                                            href="#contact" 
-                                            className="text-xs font-bold bg-blue-600/20 text-blue-400 px-3 py-1 rounded-full hover:bg-blue-600 hover:text-white transition-all"
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            Hire Me
-                                        </motion.a>
-                                    </div>
+                                {/* Name and Role - Always Visible */}
+                                <div className="text-center mt-4">
+                                    <h3 className="text-xl font-bold text-white">{member.name}</h3>
+                                    <p className="text-blue-400 text-sm">{member.role}</p>
                                 </div>
+                                
+                                {/* Hire Me Button - Always Visible */}
+                                <motion.a 
+                                    href="#contact" 
+                                    className="flex justify-center mt-3"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <span className="text-xs font-bold bg-blue-600/20 text-blue-400 px-4 py-1 rounded-full hover:bg-blue-600 hover:text-white transition-all">
+                                        Hire Me
+                                    </span>
+                                </motion.a>
                             </motion.div>
                         ))}
                     </AnimatePresence>
@@ -346,13 +377,20 @@ const Team = () => {
                 )}
             </div>
 
-            {/* CSS for grid pattern */}
+            {/* CSS for grid pattern and line-clamp */}
             <style jsx>{`
                 .bg-grid-pattern {
                     background-image: 
                         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
                     background-size: 20px 20px;
+                }
+                
+                .line-clamp-3 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
                 }
             `}</style>
         </section>
