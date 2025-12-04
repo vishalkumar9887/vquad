@@ -208,7 +208,7 @@ const Contact = () => {
                             <FaMapMarkerAlt className="text-white text-xl" />
                         </div>
                         <h3 className="text-white font-semibold mb-2">Location</h3>
-                        <p className="text-slate-400 text-sm">Remote / Worldwide</p>
+                        <p className="text-slate-400 text-sm">Remote</p>
                     </motion.div>
                 </motion.div>
 

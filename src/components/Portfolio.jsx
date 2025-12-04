@@ -1,57 +1,69 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FaPlay, FaTimes, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaPlay, FaTimes, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 
 const portfolioItems = [
     {
         id: 1,
-        title: 'E-Commerce Platform',
+        title: 'VishalFlix- A netflix clone',
         category: 'Full-Stack',
-        image: 'https://placehold.co/600x400/1e293b/white?text=E-Commerce',
-        description: 'A scalable e-commerce solution with React and Node.js.',
-        type: 'image'
+        image: '/src/assets/image copy 4.png',
+        description: 'watch movies and tv shows online & Book tickets.',
+        type: 'image',
+        url: 'https://vishal-flix.vercel.app/',
+        githubUrl: 'https://github.com/vishalkumar/vishal-flix'
     },
     {
         id: 2,
-        title: 'AI Face Recognition',
+        title: 'AI Image Recognizer',
         category: 'AI/ML',
-        image: 'https://placehold.co/600x400/1e293b/white?text=Face+Recognition',
+        image: '/src/assets/image copy 5.png',
         description: 'Real-time face recognition system for security applications.',
-        type: 'image'
+        type: 'image',
+        url: 'https://ai-image-recognizer.vercel.app/',
+        githubUrl: 'https://github.com/vishalkumar/ai-image-recognizer'
     },
     {
         id: 3,
-        title: 'Promotional Reel',
+        title: 'VishalTradeX - A stock trading platform',
         category: 'Video',
         image: 'https://placehold.co/600x400/1e293b/white?text=Video+Reel',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', // Placeholder video
         description: 'High-energy promotional video for a tech startup.',
-        type: 'video'
+        type: 'video',
+        url: 'https://voice-pal-demo.vercel.app/',
+        githubUrl: 'https://github.com/vishalkumar/voice-pal'
     },
-    {
-        id: 4,
-        title: 'Interactive 3D Game',
-        category: 'Game Dev',
-        image: 'https://placehold.co/600x400/1e293b/white?text=3D+Game',
-        description: 'Web-based 3D game built with Unity and WebGL.',
-        type: 'image'
-    },
-    {
-        id: 5,
-        title: 'Corporate Branding',
-        category: 'Video',
-        image: 'https://placehold.co/600x400/1e293b/white?text=Branding',
-        videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        description: 'Corporate branding video package.',
-        type: 'video'
-    },
+    // {
+    //     id: 4,
+    //     title: 'VishTradeX - A stock trading platform',
+    //     category: 'Stock Trading & Analysis',
+    //     image: 'src/assets/image copy 6.png',
+    //     description: 'Web-based 3D game built with Unity and WebGL.',
+    //     type: 'image',
+    //     url: 'https://vishaltradex.vercel.app/',
+    //     githubUrl: 'https://github.com/vishalkumar/vishal-tradex'
+    // },
+    // {
+    //     id: 5,
+    //     title: 'Corporate Branding',
+    //     category: 'Video',
+    //     image: 'https://placehold.co/600x400/1e293b/white?text=Branding',
+    //     videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    //     description: 'Corporate branding video package.',
+    //     type: 'video',
+    //     url: 'https://corporate-branding.vercel.app/',
+    //     githubUrl: 'https://github.com/vishalkumar/corporate-branding'
+    // },
     {
         id: 6,
-        title: 'SaaS Dashboard',
+        title: 'Voice Pal',
         category: 'Full-Stack',
-        image: 'https://placehold.co/600x400/1e293b/white?text=Dashboard',
-        description: 'Analytics dashboard for SaaS application.',
-        type: 'image'
+        image: 'src/assets/image copy 7.png',
+        description: '',
+        type: 'image',
+        url: 'https://voicepal2-mp.vercel.app/',
+        githubUrl: 'https://github.com/vishalkumar/saas-dashboard'
     }
 ];
 
@@ -225,13 +237,49 @@ const Portfolio = () => {
                                                     {selectedItem.category}
                                                 </span>
                                             </div>
-                                            <a href="#" className="flex items-center text-white hover:text-blue-400 transition-colors">
-                                                View Project <FaExternalLinkAlt className="ml-2 text-sm" />
-                                            </a>
+                                            <div className="flex gap-3">
+                                                <motion.a 
+                                                    href={selectedItem.url} 
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center text-white hover:text-blue-400 transition-colors"
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                >
+                                                    View Project <FaExternalLinkAlt className="ml-2 text-sm" />
+                                                </motion.a>
+                                                <motion.a 
+                                                    href={selectedItem.githubUrl} 
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center text-white hover:text-gray-400 transition-colors"
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                >
+                                                    <FaGithub className="text-xl" />
+                                                </motion.a>
+                                            </div>
                                         </div>
                                         <p className="text-slate-300 leading-relaxed">
                                             {selectedItem.description}
                                         </p>
+                                        
+                                        {/* Additional Project Details */}
+                                        <div className="mt-6 grid grid-cols-2 gap-4">
+                                            <div className="bg-slate-800/50 rounded-lg p-4">
+                                                <h4 className="text-sm font-semibold text-blue-400 mb-2">Technologies Used</h4>
+                                                <p className="text-slate-300 text-sm">
+                                                    {selectedItem.category === 'Full-Stack' ? 'React, Node.js, MongoDB' : 
+                                                     selectedItem.category === 'AI/ML' ? 'TensorFlow, Python, OpenCV' :
+                                                     selectedItem.category === 'Video' ? 'Premiere Pro, After Effects' :
+                                                     'Unity, C#, WebGL'}
+                                                </p>
+                                            </div>
+                                            <div className="bg-slate-800/50 rounded-lg p-4">
+                                                <h4 className="text-sm font-semibold text-blue-400 mb-2">Project Status</h4>
+                                                <p className="text-slate-300 text-sm">Completed and Deployed</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

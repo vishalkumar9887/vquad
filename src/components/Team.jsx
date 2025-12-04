@@ -1,25 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaBriefcase, FaCode, FaGamepad, FaVideo, FaBrain } from 'react-icons/fa';
-
-
+import { FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaBriefcase, FaCode, FaGamepad, FaVideo, FaBrain, FaExternalLinkAlt } from 'react-icons/fa';
 
 const teamMembers = [
-     {
+    {
         name: 'Vishal Kumar',
         role: 'Full-Stack Engineer',
         bio: 'Focus: React, Node.js, Express, MongoDB, Spring Boot, deployment, APIs.',
         tags: ['Full-Stack'],
         image: 'src/assets/vishal.jpeg',
-        icon: <FaCode />
+        icon: <FaCode />,
+        social: {
+            linkedin: 'https://www.linkedin.com/in/vishal-offc/',
+            github: 'https://github.com/vishalkumar9887',
+            email: 'vishalviru100207@gmail.com',
+            portfolio: 'https://delightful-khapse-28e51f.netlify.app'
+        }
     },
     {
         name: 'Shuvradeep Chatrjee',
         role: 'AI/ML Engineer',
         bio: 'Focus: face recognition, automation, data processing, AI model integration.',
         tags: ['AI/ML'],
-        image: 'https://ui-avatars.com/api/?name=Shuvradeep+Chatrjee&background=0D8ABC&color=fff',
-        icon: <FaBrain />
+        image: 'https://www.linkedin.com/in/shuvradeep-chatterjee',
+        icon: <FaBrain />,
+        social: {
+            linkedin: 'https://www.linkedin.com/in/shuvradeep-chatterjee/',
+            github: 'https://github.com/sayan-dot',
+            email: 'shuvradeep.86@gmail.com',
+            portfolio: 'https://shuvradeep-chatterjee.vercel.app/'
+        }
     },
     {
         name: 'Vivek Kumar',
@@ -27,7 +37,13 @@ const teamMembers = [
         bio: 'Focus: Unity/Unreal, interactive experiences, web games and playable demos.',
         tags: ['Game Dev'],
         image: "/src/assets/image.png",
-        icon: <FaGamepad />
+        icon: <FaGamepad />,
+        social: {
+            linkedin: 'https://www.linkedin.com/in/vivek-kumar-garg-64429b36b',
+            github: "https://github.com/vivek21821",
+            email: 'satojiav@gmail.com',
+            portfolio: 'https://vivek-games.vercel.app'
+        }
     },
     {
         name: 'Vasu',
@@ -35,9 +51,14 @@ const teamMembers = [
         bio: 'Focus: professional video editing, reels, promotional videos, and ML-assisted video workflows.',
         tags: ['Video', 'AI/ML'],
         image: 'https://ui-avatars.com/api/?name=Vasu&background=0D8ABC&color=fff',
-        icon: <FaVideo />
+        icon: <FaVideo />,
+        social: {
+            linkedin: 'https://www.linkedin.com/in/vasubandhu-dhosh-91223638',
+            github: 'https://github.com/vasuaieditor',
+            email: 'sdvashu9090@gmail.com',
+            portfolio: 'https://vasu-portfolio.vercel.app'
+        }
     },
-   
 ];
 
 const allTags = ['All', 'AI/ML', 'Game Dev', 'Video', 'Full-Stack'];
@@ -252,32 +273,50 @@ const Team = () => {
                                         ))}
                                     </div>
 
-                                    {/* Footer */}
+                                    {/* Footer with Individual Social Links */}
                                     <div className="flex justify-between items-center">
                                         <div className="flex space-x-3">
                                             <motion.a 
-                                                href="#" 
-                                                className="text-slate-400 hover:text-white transition-colors"
-                                                whileHover={{ scale: 1.2 }}
+                                                href={member.social.linkedin} 
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-slate-400 hover:text-blue-500 transition-colors"
+                                                whileHover={{ scale: 1.2, rotate: 5 }}
                                                 whileTap={{ scale: 0.8 }}
+                                                title={`Connect with ${member.name} on LinkedIn`}
                                             >
                                                 <FaLinkedin />
                                             </motion.a>
                                             <motion.a 
-                                                href="#" 
+                                                href={member.social.github} 
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 className="text-slate-400 hover:text-white transition-colors"
-                                                whileHover={{ scale: 1.2 }}
+                                                whileHover={{ scale: 1.2, rotate: -5 }}
                                                 whileTap={{ scale: 0.8 }}
+                                                title={`View ${member.name}'s GitHub profile`}
                                             >
                                                 <FaGithub />
                                             </motion.a>
                                             <motion.a 
-                                                href="#" 
-                                                className="text-slate-400 hover:text-white transition-colors"
+                                                href={`mailto:${member.social.email}`}
+                                                className="text-slate-400 hover:text-green-500 transition-colors"
                                                 whileHover={{ scale: 1.2 }}
                                                 whileTap={{ scale: 0.8 }}
+                                                title={`Email ${member.name}`}
                                             >
                                                 <FaEnvelope />
+                                            </motion.a>
+                                            <motion.a 
+                                                href={member.social.portfolio} 
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-slate-400 hover:text-purple-500 transition-colors"
+                                                whileHover={{ scale: 1.2, rotate: 10 }}
+                                                whileTap={{ scale: 0.8 }}
+                                                title={`View ${member.name}'s portfolio`}
+                                            >
+                                                <FaExternalLinkAlt />
                                             </motion.a>
                                         </div>
                                         <motion.a 
